@@ -1,0 +1,104 @@
+@use "variables" as variables;
+
+@mixin for-size($size) {
+  @if $size == phone-only {
+    @media (max-width: map-get(variables.$screen-sizes, "phone")) {
+      @content;
+    }
+  } @else if $size == tablet-only {
+    @media (max-width: map-get(variables.$screen-sizes, "tablet")) {
+      @content;
+    }
+  } @else if $size == tablet-portrait-up {
+    @media (min-width: map-get(variables.$screen-sizes, "tabletPortrait")) {
+      @content;
+    }
+  } @else if $size == tablet-landscape-up {
+    @media (min-width: map-get(variables.$screen-sizes, "tabletLandscape")) {
+      @content;
+    }
+  } @else if $size == desktop-up {
+    @media (min-width: map-get(variables.$screen-sizes, "desktop")) {
+      @content;
+    }
+  } @else if $size == big-desktop-up {
+    @media (min-width: map-get(variables.$screen-sizes, "bigDesktop")) {
+      @content;
+    }
+  }
+}
+
+@mixin box-shadow($shadow: variables.$light-shadow) {
+  box-shadow: $shadow;
+}
+
+@mixin pseudo-block($width, $height, $content: "") {
+  content: $content;
+  width: $width;
+  height: $height;
+  display: inline-block;
+}
+
+@mixin flex-horizontal-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-grow-scrollable {
+  flex: 1 0 auto;
+  overflow-y: auto;
+  height: 0px;
+}
+
+@mixin truncate($width: 250px) {
+  width: $width;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+@mixin flex-list($column-number: 4, $gap: variables.$spacing) {
+  @include flex-gap($gap);
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    width: calc(100% / #{$column-number} - #{$gap});
+    flex: 1 0 auto;
+  }
+}
+
+@mixin grid-list($column-number: 2, $gap: variables.$spacing) {
+  display: grid;
+  grid-template-columns: repeat($column-number, 1fr);
+  gap: $gap;
+}
+
+@mixin flex-gap($gap) {
+  @supports not (gap: $gap) {
+    margin: calc(-1 * #{$gap}) 0 0 calc(-1 * #{$gap});
+    width: calc(100% + #{$gap});
+    & > * {
+      margin: $gap 0 0 $gap;
+    }
+  }
+
+  @supports (gap: $gap) {
+    gap: $gap;
+  }
+}
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}

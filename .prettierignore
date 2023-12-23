@@ -1,0 +1,10 @@
+.next
+build
+dist
+out
+.vscode
+coverage
+e2e
+node_modules
+**/*.md
+**/*.MD

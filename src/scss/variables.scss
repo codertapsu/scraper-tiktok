@@ -1,0 +1,18 @@
+$ideal-width: 1280;
+$spacing: 8px;
+$small-spacing: 4px;
+$screen-sizes: (
+  phone: 599px,
+  tablet: 768px,
+  tabletPortrait: 600px,
+  tabletLandscape: 900px,
+  desktop: 1200px,
+  bigDesktop: 1800px,
+);
+$header-height: 64px;
+$side-bar-width: 256px;
+$side-bar-width-small: 112px;
+$light-shadow:
+  0px 1px 1px rgba(0, 0, 0, 0.14),
+  0px 2px 1px rgba(0, 0, 0, 0.12),
+  0px 1px 3px rgba(0, 0, 0, 0.2);

@@ -2,23 +2,46 @@
   "name": "scraper-tiktok",
   "version": "0.1.0",
   "private": true,
+  "main": "dist-electron/main.js",
+  "engineStrict": true,
+  "engines": {
+    "node": "^20.10.0",
+    "npm": "~10.2.0",
+    "yarn": "please use npm instead of yarn"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "compile": "tsc -p tsconfig.server.json",
+    "compile:watch": "tsc -p tsconfig.server.json -w",
+    "dev": "concurrently -n \"NEXT,COMPILE,ELECTRON\" -c \"yellow,green,blue\" --kill-others \"next dev\" \"npm run compile:watch\" \"electron .\"",
+    "build": "next build && npm run compile && electron-builder",
+    "next:dev": "next dev",
+    "next:build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "npx eslint --fix",
+    "format": "npx prettier -c .",
+    "format:fix": "npx prettier --write ."
   },
   "dependencies": {
+    "electron-serve": "^1.2.0",
+    "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.4"
+    "react-hook-form": "^7.49.2"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "concurrently": "^8.2.2",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
     "eslint": "^8",
-    "eslint-config-next": "14.0.4"
+    "eslint-config-next": "14.0.4",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5"
   }
 }
